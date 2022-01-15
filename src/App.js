@@ -6,16 +6,19 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [term, setTerm] = useState('');
 
-  useEffect(async ()=> {
-    try{
-      const req = await fetch(`https://pixabay.com/api/?key=${process.env.REACT_APP_PIXABAY_API_KEY}&q=${term}&image_type=photo&pretty=true`);
-      const data = await req.json();
-      setImages(data.hits);
-      setIsLoading(false);
-    }
-    catch(err){
-        console.log(err)
-    }  
+  useEffect(()=> {
+    (async () => {
+      try{
+        const req = await fetch(`https://pixabay.com/api/?key=${process.env.REACT_APP_PIXABAY_API_KEY}&q=${term}&image_type=photo&pretty=true`);
+        const data = await req.json();
+        setImages(data.hits);
+        setIsLoading(false);
+        console.log(data)
+      }
+      catch(err){
+          console.log(err)
+      } 
+  })()
   },[term]);
 
   const  searchText = text => {
